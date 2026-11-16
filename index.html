@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Assistente de programação em português com inferência de LLM no navegador.">
+  <title>PerguntaDev | Assistente de programação</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">PROJETO DE IA GENERATIVA</p>
+      <h1>PerguntaDev</h1>
+      <p class="intro">Um assistente experimental de programação em português, executado no seu navegador com um modelo aberto.</p>
+      <p class="privacy">As mensagens são processadas localmente no navegador. O modelo é baixado do Hugging Face na primeira utilização.</p>
+    </header>
+
+    <section class="chat-card" aria-label="Conversa com PerguntaDev">
+      <div id="status" class="status" role="status" aria-live="polite">Preparando o modelo…</div>
+      <div id="messages" class="messages" aria-live="polite">
+        <div class="bubble assistant">Olá! Posso explicar conceitos de programação e ajudar com exemplos curtos. Confira as respostas antes de usar o código.</div>
+      </div>
+      <form id="chat-form" class="composer">
+        <label class="sr-only" for="question">Sua pergunta</label>
+        <textarea id="question" rows="2" maxlength="1200" placeholder="Ex.: Qual é a diferença entre uma classe e um objeto em Java?" required></textarea>
+        <button id="send" type="submit" disabled>Enviar</button>
+      </form>
+      <div class="examples" aria-label="Perguntas de exemplo">
+        <button class="example" type="button">O que é uma lista em Python?</button>
+        <button class="example" type="button">Como funciona uma função em C?</button>
+      </div>
+    </section>
+
+    <footer>
+      <p>Modelo: <a href="https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct" target="_blank" rel="noreferrer">Qwen2.5-0.5B-Instruct (ONNX)</a> · Interface com Transformers.js</p>
+      <p>Protótipo educacional. Modelos pequenos podem gerar respostas incorretas ou código inseguro.</p>
+    </footer>
+  </main>
+</body>
+</html>
