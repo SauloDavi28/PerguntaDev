@@ -11,35 +11,35 @@ models:
 
 # PerguntaDev
 
-Assistente experimental de programação em português. O protótipo executa inferência no próprio navegador com Transformers.js e pesos ONNX do `Qwen2.5-0.5B-Instruct`. Usa WebGPU quando disponível e tenta WASM/CPU como alternativa. Não requer servidor de inferência nem chave de API.
+Assistente experimental de programação em português. Integra Transformers.js e os pesos ONNX do Qwen2.5-0.5B-Instruct para executar inferência localmente no navegador. Usa WebGPU quando disponível e tenta WASM/CPU como alternativa; não requer servidor de inferência ou chave de API.
 
-## O que demonstra
+## Demonstração
 
-- Integração de um LLM instrucional pré-existente por Transformers.js.
-- Inferência no navegador com um modelo ONNX quantizado em 4 bits.
-- Construção de prompt de sistema e manutenção de histórico recente.
-- Interface web responsiva em HTML, CSS e JavaScript.
+Experimente no [Hugging Face Spaces](https://huggingface.co/spaces/sauloengineer/perguntadev).
 
-Este projeto não treinou nem ajustou o modelo. O código configura a inferência e a interface; os pesos são baixados do Hugging Face pelo navegador e podem ocupar centenas de megabytes. O tempo de carga e a velocidade dependem do dispositivo. WebGPU ainda apresenta diferenças entre navegadores; WASM/CPU pode ser mais lento.
+## Funcionalidades e implementação
+
+- Interface web em HTML, CSS e JavaScript.
+- Modelo ONNX quantizado em 4 bits, carregado com Transformers.js.
+- Seleção de WebGPU com fallback para WASM/CPU.
+- Prompt de sistema em português e manutenção de histórico recente.
+- Configuração de parâmetros para geração de respostas.
+- Testes locais comparativos de inicialização do modelo e geração de texto em WebGPU e WASM/CPU. O desempenho varia conforme dispositivo, navegador e cache.
 
 ## Modelo
 
-O projeto usa os pesos ONNX do [Qwen2.5-0.5B-Instruct](https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct), adaptados para Transformers.js. O modelo base é [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), com licença Apache 2.0 e suporte multilíngue que inclui português. Consulte os model cards para detalhes e limitações.
+A integração usa os pesos ONNX do [Qwen2.5-0.5B-Instruct da onnx-community](https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct), preparados para Transformers.js. O modelo base é [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), com licença Apache 2.0 e suporte multilíngue que inclui português.
 
 ## Executar localmente
 
-Sirva os arquivos com um servidor HTTP local, pois módulos ES não funcionam de forma confiável ao abrir o HTML diretamente como `file://`:
+Sirva os arquivos com um servidor HTTP local, pois módulos ES não funcionam de forma confiável ao abrir HTML diretamente como `file://`:
 
 ```bash
 python -m http.server 8000
 ```
 
-Abra `http://localhost:8000`. O primeiro carregamento baixa o modelo. Use um navegador com suporte a WebGPU para melhor desempenho; se não estiver disponível, a aplicação tenta WASM/CPU.
-
-## Publicar no Hugging Face Spaces
-
-Crie um Space público com SDK **Static** e envie `index.html`, `app.js`, `styles.css` e este `README.md`. Static Spaces são hospedados sem precisar de uma instância Gradio/Docker com compute.
+Abra `http://localhost:8000`. O primeiro carregamento baixa os pesos do modelo, que podem ocupar centenas de megabytes.
 
 ## Limitações
 
-Este é um protótipo educacional. O modelo tem 0,5 bilhão de parâmetros e pode cometer erros, gerar explicações incompletas ou produzir código inseguro. Revise as respostas e execute código apenas em ambiente apropriado. As mensagens da conversa permanecem no navegador; o modelo e a biblioteca são baixados de fontes públicas do Hugging Face e CDNjs.
+Protótipo educacional. O modelo pode cometer erros, gerar explicações incompletas ou produzir código inseguro. Revise as respostas e execute código apenas em ambiente apropriado. O histórico da conversa permanece no navegador; o modelo e a biblioteca são baixados de fontes públicas do Hugging Face e CDNjs.
